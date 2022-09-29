@@ -27,7 +27,7 @@ WHERE PropertyAddress is null
 ORDER BY ParcelID
 
 
--- Using ParcelID as a unique ID, I join the table with itself to find where rows have the same ParcelID but a one has an address and another is null.
+-- Using ParcelID as a unique ID, I join the table with itself to find where rows have the same ParcelID but where one has an address and another is null.
 -- Therefore I can populate the null address with the previous address from the row with the same ParcelID since they are the same household.
 
 SELECT a.ParcelID, a.PropertyAddress, b.ParcelID, b.PropertyAddress, ISNULL(a.PropertyAddress, b.PropertyAddress)
@@ -156,7 +156,7 @@ SET SoldAsVacant = CASE WHEN SoldAsVacant = 'Y' THEN 'Yes'
 
 -- **Remove Duplicates**
 
--- Creating A CTE that has shows duplicate rows when rows share the same ParcelID, PropertyAddress, etc. on a new "row_num" field
+-- Creating A CTE that shows duplicate rows when rows share the same ParcelID, PropertyAddress, etc. on a new "row_num" field
 -- Then deleting the rows in which 'row_num' is >1, meaning they are a duplicate
 WITH RowNumCTE AS(
 SELECT *,
